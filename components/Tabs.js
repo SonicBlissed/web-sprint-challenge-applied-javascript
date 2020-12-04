@@ -31,13 +31,13 @@ axios
 .get(`https://lambda-times-api.herokuapp.com/topics`)
 .then((stuff) => {
     const info = stuff.data.topics;
-    info.forEach((topics) => {
+    info.forEach(info => {
         const tabs = tabMaker(`${info}`);
         entry.append(tabs);
 
     });
     
-    console.log(info);
+    // console.log(info);
     
 })
 .catch((err) => {

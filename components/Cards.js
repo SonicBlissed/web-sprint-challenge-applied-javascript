@@ -21,8 +21,10 @@
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 import axios from 'axios';
+const entryPoint = document.querySelector('.card-container');
+const articleArray = ["javascript", "bootstrap", "technology", "jquery", "node.js"];
 
-function cardMaker(article){
+function cardMaker(futureData){
     //elements
     const card = document.createElement('div');
     const headline = document.createElement('h2');
@@ -43,17 +45,40 @@ function cardMaker(article){
     author.appendChild(imageContainer);
     imageContainer.appendChild(imageSRC);
     author.appendChild(name);
+    // entryPoint.appendChild(card);
     //contents
-    headline.textContent = null;
+    headline.textContent = `Headline: ${futureData.data.articles}`;
     imageSRC.src = null;
     name.textContent = null;
-    
+    // event listeners
+    // let cards = document.querySelector('.card-container');
+
+    // cards.addEventListener('click', event => {
+    // console.log();
+// })
     return card;
 
 }
 
+
+
+
+
+
 axios
 .get(`https://lambda-times-api.herokuapp.com/articles`)
 .then((futureData) => {
-    console.log(futureData.data.articles.javascript[3]);
+    // console.log(futureData.data.articles.javascript[3]);
+    console.log(futureData);
+    const info = futureData.data.articles;
+    info.forEach(info => {
+        const card = cardMaker(`${info}`);
+        entryPoint.append(card);
+
+    });
+    console.log(info);
+    
 })
+.catch((err) => {
+    debugger;
+  })
